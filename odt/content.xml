@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<office:document-content xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" office:version="1.2">
+    <office:body>
+        <office:text>
+            <!-- <text:h text:style-name="Heading_20_1" text:outline-level="1">Challenges</text:h> -->
+            <text:p text:style-name="Body">⬜ Foto de un sticker de sysarmy</text:p>
+            <text:p text:style-name="Body">⬜ Foto de una remera de Debian</text:p>
+            <text:p text:style-name="Body">⬜ Foto en un workshop</text:p>
+            <text:p text:style-name="Body">⬜ Sacá una foto panorámica o un video 360</text:p>
+            <text:p text:style-name="Body">⬜ Sacale una foto a los Access Points de BitSense (son unos círculos blancos)</text:p>
+            <text:p text:style-name="Body">⬜ Sacate una selfie en el stand de LinuxChix</text:p>
+            <text:p text:style-name="Body">⬜ Selfie en el living de Ripio</text:p>
+            <text:p text:style-name="Body">⬜ Selfie en la mesa de coworking 08</text:p>
+            <text:p text:style-name="Body">⬜ Armá la N de nerdear.la con los meccanos de las mesas y sacale una foto (no te los lleves a tu casa)</text:p>
+            <text:p text:style-name="Body">⬜ Sacate una selfie con una persona buena onda que hayas conocido</text:p>
+        </office:text>
+    </office:body>
+</office:document-content>
