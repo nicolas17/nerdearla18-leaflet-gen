@@ -1,0 +1,62 @@
+#!/usr/bin/env python3
+
+# Copyright (c) 2018 Nicolás Alvarez <nicolas.alvarez@gmail.com>
+# Licensed under the MIT license; see LICENSE.txt for details.
+
+"""
+
+Steps:
+- read list of challenges
+- get random subsets
+- generate content.xml with the text lines
+- zip it up into challenges.odt
+- convert to challenges.pdf
+- overlay challenges.pdf onto base PDF
+
+"""
+
+import sys
+
+from subprocess import Popen
+import zipfile
+from lxml import etree
+from PyPDF2 import PdfFileReader, PdfFileWriter
+
+def generateOdtContent(text_lines, out_file):
+    OFFICE_NAMESPACE = 'urn:oasis:names:tc:opendocument:xmlns:office:1.0'
+    TEXT_NAMESPACE   = 'urn:oasis:names:tc:opendocument:xmlns:text:1.0'
+    OFFICE = '{%s}' % OFFICE_NAMESPACE
+    TEXT   = '{%s}' % TEXT_NAMESPACE
+
+    NSMAP = {'office': OFFICE_NAMESPACE, 'text': TEXT_NAMESPACE}
+
+    root = etree.Element(OFFICE+"document-content", nsmap=NSMAP)
+    root.set(OFFICE+'version', '1.2')
+
+    body_elem = etree.SubElement(root, OFFICE+'body')
+    text_elem = etree.SubElement(body_elem, OFFICE+'text')
+
+    for line in text_lines:
+        para_elem = etree.SubElement(text_elem, TEXT+'p')
+        para_elem.set(TEXT+'style-name', 'Body')
+        para_elem.text = line
+
+    etree.ElementTree(root).write(out_file, encoding='UTF-8')
+
+def makeFinalPDF(base_file, overlay_file, output_file):
+    output = PdfFileWriter()
+
+    orig = PdfFileReader(open(base_file,'rb'))
+    challenges = PdfFileReader(open(overlay_file,'rb'))
+
+    page = orig.getPage(1)
+    page.mergePage(challenges.getPage(0))
+    output.addPage(page)
+
+    with open(output_file, 'wb') as out_f:
+        output.write(out_f)
+
+
+#makeFinalPDF('agenda_a5.pdf', 'output.pdf', 'final.pdf')
+
+generateOdtContent(["one","two"], sys.stdout.buffer)
