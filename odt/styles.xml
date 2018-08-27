@@ -11,11 +11,19 @@
         <style:style style:name="Body" style:display-name="Text body" style:family="paragraph" style:parent-style-name="Standard" style:class="text">
             <style:paragraph-properties fo:margin-top="0cm" fo:margin-bottom="0.247cm" fo:line-height="100%"/>
         </style:style>
-        <style:style style:name="Body_first" style:family="paragraph" style:class="text" style:parent-style-name="Body" style:master-page-name="Standard"/>
+
+        <style:style style:name="Challenge box" style:family="graphic">
+            <style:graphic-properties
+                style:wrap="run-through"
+                style:vertical-rel="page" style:vertical-pos="from-top"
+                style:horizontal-rel="page" style:horizontal-pos="from-left"
+                fo:padding="0cm"
+            />
+        </style:style>
     </office:styles>
     <office:automatic-styles>
         <style:page-layout style:name="Mpm1">
-            <style:page-layout-properties fo:page-width="210mm" fo:page-height="148mm" style:print-orientation="landscape" fo:margin-top="4cm" fo:margin-bottom="0.5cm" fo:margin-left="0.5cm" fo:margin-right="11cm" style:writing-mode="lr-tb"/>
+            <style:page-layout-properties fo:page-width="210mm" fo:page-height="148mm" style:print-orientation="landscape" style:writing-mode="lr-tb"/>
         </style:page-layout>
     </office:automatic-styles>
     <office:master-styles>
