@@ -17,12 +17,12 @@ Steps:
 
 import sys
 
-from subprocess import Popen
 import zipfile
+import subprocess
 from lxml import etree
 from PyPDF2 import PdfFileReader, PdfFileWriter
 
-def generateOdtContent(text_lines, out_file):
+def generateOdtContent(out_file, text_lines):
     OFFICE_NAMESPACE = 'urn:oasis:names:tc:opendocument:xmlns:office:1.0'
     TEXT_NAMESPACE   = 'urn:oasis:names:tc:opendocument:xmlns:text:1.0'
     OFFICE = '{%s}' % OFFICE_NAMESPACE
@@ -43,7 +43,24 @@ def generateOdtContent(text_lines, out_file):
 
     etree.ElementTree(root).write(out_file, encoding='UTF-8')
 
-def makeFinalPDF(base_file, overlay_file, output_file):
+def generateOdt(filename, text_lines):
+    with zipfile.ZipFile(filename, 'w') as zipout:
+        # the mimetype file *must* be uncompressed
+        zipout.compression = zipfile.ZIP_STORED
+        zipout.write('odt/mimetype', 'mimetype')
+
+        zipout.compression = zipfile.ZIP_DEFLATED
+        zipout.write('odt/META-INF/manifest.xml', 'META-INF/manifest.xml')
+        zipout.write('odt/styles.xml', 'styles.xml')
+
+        # FIXME write correct timestamp for this file; currently it's set to 1980
+        with zipout.open('content.xml', 'w') as content_f:
+            generateOdtContent(content_f, text_lines)
+
+def convertOdtToPdf(input_path):
+    subprocess.check_call(['libreoffice', '--headless', '--convert-to', 'pdf', input_path])
+
+def mergePDFs(base_file, overlay_file, output_file):
     output = PdfFileWriter()
 
     orig = PdfFileReader(open(base_file,'rb'))
@@ -57,6 +74,6 @@ def makeFinalPDF(base_file, overlay_file, output_file):
         output.write(out_f)
 
 
-#makeFinalPDF('agenda_a5.pdf', 'output.pdf', 'final.pdf')
-
-generateOdtContent(["one","two"], sys.stdout.buffer)
+generateOdt('challenges.odt', ['one', 'two'])
+convertOdtToPdf('challenges.odt')
+mergePDFs('agenda_a5.pdf', 'challenges.pdf', 'output.pdf')
