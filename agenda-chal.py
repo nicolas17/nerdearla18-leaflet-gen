@@ -19,10 +19,15 @@ import sys
 
 import zipfile
 import subprocess
+import copy
 from lxml import etree
 from PyPDF2 import PdfFileReader, PdfFileWriter
 
 def generateOdtContent(out_file, text_lines):
+    '''
+    text_lines should be a list of lists of text lines;
+    each sublist will be used on a separate page.
+    '''
     OFFICE_NAMESPACE = 'urn:oasis:names:tc:opendocument:xmlns:office:1.0'
     TEXT_NAMESPACE   = 'urn:oasis:names:tc:opendocument:xmlns:text:1.0'
     OFFICE = '{%s}' % OFFICE_NAMESPACE
@@ -36,10 +41,13 @@ def generateOdtContent(out_file, text_lines):
     body_elem = etree.SubElement(root, OFFICE+'body')
     text_elem = etree.SubElement(body_elem, OFFICE+'text')
 
-    for line in text_lines:
-        para_elem = etree.SubElement(text_elem, TEXT+'p')
-        para_elem.set(TEXT+'style-name', 'Body')
-        para_elem.text = line
+    for page in text_lines:
+        first = True
+        for line in page:
+            para_elem = etree.SubElement(text_elem, TEXT+'p')
+            para_elem.set(TEXT+'style-name', 'Body_first' if first else 'Body')
+            para_elem.text = line
+            first = False
 
     etree.ElementTree(root).write(out_file, encoding='UTF-8')
 
@@ -66,14 +74,15 @@ def mergePDFs(base_file, overlay_file, output_file):
     orig = PdfFileReader(open(base_file,'rb'))
     challenges = PdfFileReader(open(overlay_file,'rb'))
 
-    page = orig.getPage(1)
-    page.mergePage(challenges.getPage(0))
-    output.addPage(page)
+    for page_num in range(challenges.getNumPages()):
+        page = copy.copy(orig.getPage(1))
+        page.mergePage(challenges.getPage(page_num))
+        output.addPage(page)
 
     with open(output_file, 'wb') as out_f:
         output.write(out_f)
 
 
-generateOdt('challenges.odt', ['one', 'two'])
+generateOdt('challenges.odt', [['one', 'two'], ['three', 'four']])
 convertOdtToPdf('challenges.odt')
 mergePDFs('agenda_a5.pdf', 'challenges.pdf', 'output.pdf')
