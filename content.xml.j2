@@ -10,18 +10,18 @@
     <office:text>
       {% for page in pages %}
       <draw:frame
-          text:anchor-type="page" text:anchor-page-number="{{loop.index}}"
+          text:anchor-type="page" text:anchor-page-number="{{loop.index0//2 + 1}}"
           draw:name="Challengebox{{loop.index}}"
           draw:style-name="Challenge box"
           draw:text-style-name="Body"
-          svg:width="9.5cm"
-          svg:height="10.5cm"
+          svg:width="10cm"
+          svg:height="7cm"
           svg:x="0.5cm"
-          svg:y="4cm"
+          svg:y="{{loop.cycle(6.8, 6.8+29.7/2)}}cm"
       >
         <draw:text-box>
           {% for line in page -%}
-          <text:p text:style-name="Body">{{line}}</text:p>
+          <text:p text:style-name="Body">[{{loop.index}}] {{line}}</text:p>
           {% endfor %}
         </draw:text-box>
       </draw:frame>

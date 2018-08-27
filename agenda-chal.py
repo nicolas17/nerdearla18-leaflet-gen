@@ -76,7 +76,7 @@ def mergePDFs(base_file, overlay_file, output_file):
     challenges = PdfFileReader(open(overlay_file,'rb'))
 
     for page_num in tqdm(range(challenges.getNumPages()), unit='page'):
-        page = copy.copy(orig.getPage(1))
+        page = copy.copy(orig.getPage(0))
         page.mergePage(challenges.getPage(page_num))
         output.addPage(page)
 
@@ -88,4 +88,4 @@ if __name__ == '__main__':
 
     generateOdt('challenges.odt', challenge_variants)
     convertOdtToPdf('challenges.odt')
-    mergePDFs('agenda_a5.pdf', 'challenges.pdf', 'output.pdf')
+    mergePDFs('agenda_a4.pdf', 'challenges.pdf', 'output.pdf')

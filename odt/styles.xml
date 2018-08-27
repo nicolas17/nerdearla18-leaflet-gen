@@ -9,7 +9,7 @@
         </style:default-style>
         <style:style style:name="Standard" style:family="paragraph" style:class="text"/>
         <style:style style:name="Body" style:display-name="Text body" style:family="paragraph" style:parent-style-name="Standard" style:class="text">
-            <style:paragraph-properties fo:margin-top="0cm" fo:margin-bottom="0.247cm" fo:line-height="100%"/>
+            <style:paragraph-properties fo:margin-top="0cm" fo:margin-bottom="0.2cm" fo:line-height="100%"/>
         </style:style>
 
         <style:style style:name="Challenge box" style:family="graphic">
@@ -23,7 +23,7 @@
     </office:styles>
     <office:automatic-styles>
         <style:page-layout style:name="Mpm1">
-            <style:page-layout-properties fo:page-width="210mm" fo:page-height="148mm" style:print-orientation="landscape" style:writing-mode="lr-tb"/>
+            <style:page-layout-properties fo:page-width="210mm" fo:page-height="297mm" style:print-orientation="portrait" style:writing-mode="lr-tb"/>
         </style:page-layout>
     </office:automatic-styles>
     <office:master-styles>
