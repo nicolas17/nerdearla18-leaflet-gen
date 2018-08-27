@@ -24,6 +24,11 @@ import random
 
 from lxml import etree
 from PyPDF2 import PdfFileReader, PdfFileWriter
+try:
+    from tqdm import tqdm
+except ImportError:
+    def tqdm(iterable, *args, **kwargs):
+        return iterable
 
 def loadChallenges(filename):
     with open(filename, 'r') as f:
@@ -84,7 +89,7 @@ def mergePDFs(base_file, overlay_file, output_file):
     orig = PdfFileReader(open(base_file,'rb'))
     challenges = PdfFileReader(open(overlay_file,'rb'))
 
-    for page_num in range(challenges.getNumPages()):
+    for page_num in tqdm(range(challenges.getNumPages()), unit='page'):
         page = copy.copy(orig.getPage(1))
         page.mergePage(challenges.getPage(page_num))
         output.addPage(page)
