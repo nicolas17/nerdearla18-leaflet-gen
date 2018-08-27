@@ -97,8 +97,9 @@ def mergePDFs(base_file, overlay_file, output_file):
     with open(output_file, 'wb') as out_f:
         output.write(out_f)
 
-challenge_variants = makeChallengeVariants(loadChallenges('challenges.txt'), 100, 10)
+if __name__ == '__main__':
+    challenge_variants = makeChallengeVariants(loadChallenges('challenges.txt'), 100, 10)
 
-generateOdt('challenges.odt', challenge_variants)
-convertOdtToPdf('challenges.odt')
-mergePDFs('agenda_a5.pdf', 'challenges.pdf', 'output.pdf')
+    generateOdt('challenges.odt', challenge_variants)
+    convertOdtToPdf('challenges.odt')
+    mergePDFs('agenda_a5.pdf', 'challenges.pdf', 'output.pdf')
