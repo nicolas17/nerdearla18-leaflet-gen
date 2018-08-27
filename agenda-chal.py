@@ -20,8 +20,18 @@ import sys
 import zipfile
 import subprocess
 import copy
+import random
+
 from lxml import etree
 from PyPDF2 import PdfFileReader, PdfFileWriter
+
+def loadChallenges(filename):
+    with open(filename, 'r') as f:
+        return [line.rstrip() for line in f.readlines()]
+
+def makeChallengeVariants(input_challenges, page_count, challenges_per_page):
+    for n in range(page_count):
+        yield random.sample(input_challenges, challenges_per_page)
 
 def generateOdtContent(out_file, text_lines):
     '''
@@ -82,7 +92,8 @@ def mergePDFs(base_file, overlay_file, output_file):
     with open(output_file, 'wb') as out_f:
         output.write(out_f)
 
+challenge_variants = makeChallengeVariants(loadChallenges('challenges.txt'), 100, 10)
 
-generateOdt('challenges.odt', [['one', 'two'], ['three', 'four']])
+generateOdt('challenges.odt', challenge_variants)
 convertOdtToPdf('challenges.odt')
 mergePDFs('agenda_a5.pdf', 'challenges.pdf', 'output.pdf')
