@@ -22,7 +22,6 @@ import subprocess
 import copy
 import random
 
-from lxml import etree
 from PyPDF2 import PdfFileReader, PdfFileWriter
 try:
     from tqdm import tqdm
@@ -43,28 +42,15 @@ def generateOdtContent(out_file, text_lines):
     text_lines should be a list of lists of text lines;
     each sublist will be used on a separate page.
     '''
-    OFFICE_NAMESPACE = 'urn:oasis:names:tc:opendocument:xmlns:office:1.0'
-    TEXT_NAMESPACE   = 'urn:oasis:names:tc:opendocument:xmlns:text:1.0'
-    OFFICE = '{%s}' % OFFICE_NAMESPACE
-    TEXT   = '{%s}' % TEXT_NAMESPACE
 
-    NSMAP = {'office': OFFICE_NAMESPACE, 'text': TEXT_NAMESPACE}
+    from jinja2 import Environment, FileSystemLoader
+    env = Environment(
+        loader=FileSystemLoader('.')
+    )
 
-    root = etree.Element(OFFICE+"document-content", nsmap=NSMAP)
-    root.set(OFFICE+'version', '1.2')
+    template = env.get_template('content.xml.j2')
 
-    body_elem = etree.SubElement(root, OFFICE+'body')
-    text_elem = etree.SubElement(body_elem, OFFICE+'text')
-
-    for page in text_lines:
-        first = True
-        for line in page:
-            para_elem = etree.SubElement(text_elem, TEXT+'p')
-            para_elem.set(TEXT+'style-name', 'Body_first' if first else 'Body')
-            para_elem.text = line
-            first = False
-
-    etree.ElementTree(root).write(out_file, encoding='UTF-8')
+    template.stream(pages=text_lines).dump(out_file, encoding='UTF-8')
 
 def generateOdt(filename, text_lines):
     with zipfile.ZipFile(filename, 'w') as zipout:
@@ -98,7 +84,7 @@ def mergePDFs(base_file, overlay_file, output_file):
         output.write(out_f)
 
 if __name__ == '__main__':
-    challenge_variants = makeChallengeVariants(loadChallenges('challenges.txt'), 100, 10)
+    challenge_variants = makeChallengeVariants(loadChallenges('challenges.txt'), 10, 10)
 
     generateOdt('challenges.odt', challenge_variants)
     convertOdtToPdf('challenges.odt')
