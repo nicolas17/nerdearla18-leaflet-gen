@@ -67,7 +67,7 @@ def generateOdt(filename, text_lines):
             generateOdtContent(content_f, text_lines)
 
 def convertOdtToPdf(tempdir, input_file):
-    subprocess.check_call(['libreoffice', '--headless', '--convert-to', 'pdf', input_file], cwd=tempdir)
+    subprocess.check_call(['libreoffice', '-env:UserInstallation=file://%s' % os.path.join(os.path.abspath(tempdir), 'loenv'), '--headless', '--convert-to', 'pdf', input_file], cwd=tempdir)
 
 def mergePDFs(base_file, overlay_file, output_file):
     output = PdfFileWriter()
