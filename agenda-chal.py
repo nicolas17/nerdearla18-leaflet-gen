@@ -15,7 +15,7 @@ Steps:
 
 """
 
-import sys
+import os
 
 import zipfile
 import subprocess
@@ -66,8 +66,8 @@ def generateOdt(filename, text_lines):
         with zipout.open('content.xml', 'w') as content_f:
             generateOdtContent(content_f, text_lines)
 
-def convertOdtToPdf(input_path):
-    subprocess.check_call(['libreoffice', '--headless', '--convert-to', 'pdf', input_path])
+def convertOdtToPdf(tempdir, input_file):
+    subprocess.check_call(['libreoffice', '--headless', '--convert-to', 'pdf', input_file], cwd=tempdir)
 
 def mergePDFs(base_file, overlay_file, output_file):
     output = PdfFileWriter()
@@ -84,8 +84,16 @@ def mergePDFs(base_file, overlay_file, output_file):
         output.write(out_f)
 
 if __name__ == '__main__':
+    tempdir='tmp'
+
     challenge_variants = makeChallengeVariants(loadChallenges('challenges.txt'), 10, 10)
 
-    generateOdt('challenges.odt', challenge_variants)
-    convertOdtToPdf('challenges.odt')
-    mergePDFs('agenda_a4.pdf', 'challenges.pdf', 'output.pdf')
+    try:
+        os.mkdir(tempdir)
+    except FileExistsError:
+        pass
+
+    generateOdt(os.path.join(tempdir, 'challenges.odt'), challenge_variants)
+    convertOdtToPdf(tempdir, 'challenges.odt')
+
+    mergePDFs('agenda_a4.pdf', os.path.join(tempdir, 'challenges.pdf'), 'output.pdf')
