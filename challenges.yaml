@@ -23,6 +23,7 @@
     - Dale like a facebook.com/nerdearla
 
 - name: follow
+  max_per_page: 3
   lines:
     - Seguí a @MedalliaArg
     - Seguí a @OlxTechArg
