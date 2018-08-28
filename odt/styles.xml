@@ -9,7 +9,7 @@
         </style:default-style>
         <style:style style:name="Standard" style:family="paragraph" style:class="text"/>
         <style:style style:name="Body" style:display-name="Text body" style:family="paragraph" style:parent-style-name="Standard" style:class="text">
-            <style:paragraph-properties fo:margin-top="0cm" fo:margin-bottom="0.2cm" fo:line-height="100%"/>
+            <style:paragraph-properties fo:margin-top="0cm" fo:margin-bottom="0.15cm" fo:line-height="80%"/>
         </style:style>
 
         <style:style style:name="Challenge box" style:family="graphic">

@@ -15,13 +15,13 @@
           draw:style-name="Challenge box"
           draw:text-style-name="Body"
           svg:width="10cm"
-          svg:height="7cm"
+          svg:height="7.5cm"
           svg:x="0.5cm"
           svg:y="{{loop.cycle(6, 6+29.7/2)}}cm"
       >
         <draw:text-box>
           {% for line in page -%}
-          <text:p text:style-name="Body">[{{loop.index}}] {{line}}</text:p>
+          <text:p text:style-name="Body">{{loop.index}}. {{line}}</text:p>
           {% endfor %}
         </draw:text-box>
       </draw:frame>
