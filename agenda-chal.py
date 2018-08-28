@@ -21,13 +21,48 @@ import zipfile
 import subprocess
 import copy
 import random
+import collections
 
+import yaml
 from PyPDF2 import PdfFileReader, PdfFileWriter
 try:
     from tqdm import tqdm
 except ImportError:
     def tqdm(iterable, *args, **kwargs):
         return iterable
+
+class Challenges:
+    def __init__(self, path):
+        with open(path, 'r') as f:
+            self.data = yaml.load(f)
+            self.categories = {category['name']: category for category in self.data}
+
+        self.lines = []
+        for category in self.data:
+            for line in category['lines']:
+                self.lines.append({'line': line, 'category': category['name']})
+
+    def makePage(self, count):
+        result = []
+
+        # how many items of each category we already added into 'results'
+        category_count = collections.defaultdict(lambda: 0)
+
+        while len(result) < count:
+            item = random.choice(self.lines)
+            if item in result:
+                continue
+            if item['category'] == 'tachadas':
+                print(item)
+            if category_count[item['category']] >= self.categories[item['category']].get('max_per_page',999):
+                print("too many from %s in this page already" % item['category'])
+                continue
+            category_count[item['category']] += 1
+            result.append(item['line'])
+
+        # shuffle again since the order may be skewed
+        random.shuffle(result)
+        return result
 
 def loadChallenges(filename):
     with open(filename, 'r') as f:
@@ -86,7 +121,13 @@ def mergePDFs(base_file, overlay_file, output_file):
 if __name__ == '__main__':
     tempdir='tmp'
 
-    challenge_variants = makeChallengeVariants(loadChallenges('challenges.txt'), 10, 10)
+    inputs = Challenges('challenges.yaml')
+    challenge_variants = []
+    for pagenum in range(10):
+        print("Generating data for page %d" % (pagenum+1))
+        challenge_variants.append(inputs.makePage(count=10))
+
+    #challenge_variants = makeChallengeVariants(loadChallenges('challenges.txt'), 10, 10)
 
     try:
         os.mkdir(tempdir)
