@@ -11,6 +11,9 @@
         <style:style style:name="Body" style:display-name="Text body" style:family="paragraph" style:parent-style-name="Standard" style:class="text">
             <style:paragraph-properties fo:margin-top="0cm" fo:margin-bottom="0.15cm" fo:line-height="80%"/>
         </style:style>
+        <style:style style:name="Strike" style:display-name="Strike-out text" style:family="paragraph" style:parent-style-name="Body" style:class="text">
+            <style:text-properties style:text-line-through-style="solid" style:text-line-through-type="single"/>
+        </style:style>
 
         <style:style style:name="Challenge box" style:family="graphic">
             <style:graphic-properties

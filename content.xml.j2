@@ -21,7 +21,7 @@
       >
         <draw:text-box>
           {% for line in page -%}
-          <text:p text:style-name="Body">{{loop.index}}. {{line}}</text:p>
+          <text:p text:style-name="{% if line.style == 'strike' %}Strike{% else %}Body{% endif %}">{{loop.index}}. {{line.text}}</text:p>
           {% endfor %}
         </draw:text-box>
       </draw:frame>

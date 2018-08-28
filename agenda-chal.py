@@ -41,7 +41,7 @@ class Challenges:
         self.lines = []
         for category in self.data:
             for line in category['lines']:
-                self.lines.append({'line': line, 'category': category['name']})
+                self.lines.append({'text': line, 'category': category['name'], 'style': 'strike' if category.get('strikeout', False) else None})
 
     def makePage(self, count):
         result = []
@@ -57,7 +57,7 @@ class Challenges:
                 print("too many from %s in this page already" % item['category'])
                 continue
             category_count[item['category']] += 1
-            result.append(item['line'])
+            result.append(item)
 
         # shuffle again since the order may be skewed
         random.shuffle(result)
