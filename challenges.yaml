@@ -11,10 +11,8 @@
     - Pasá a dar una lightning talk sobre un tema que quieras contar
     - Resolvele un problema a otra persona que esté en el evento
     - Compartí en redes sociales una cita de alguna charla que te gustó
-    - Completá la encuesta de diversidad de Dig Encuentros
     - Agradecele y chocale los 5 a la gente de BitSense por la conexión
     - Convertí a un Windows user e instalale una distro cualquiera (vale x 2)
-    - Pegale a Ramón y sacá más de 600 puntos
     - Levantá un ticket
     - Preguntale a alguien de la organización en qué podés ayudar
     - Conversá con alguien que sea antivacunas y hacele ver la charla de Guadalupe del año pasado
@@ -157,6 +155,23 @@
     - Foto de una remera de Slackware (vale x 3)
     - Foto a la agenda del día
     - Foto a algún cartel que te haya llamado la atención
+    - Foto de una lightning talk
+    - Foto a un pin de Debian
+    - Foto de un coffee break
+    - Foto con el banner de Red Hat
+
+- name: juegos
+  lines:
+    - "Hacé varias publicaciones con el hashtag #pelisysistemas, participás por premios de Medallia"
+    - Jugá a la trivia de OLX
+    - Jugá al desafío de Elementum
+    - Pegale a Ramón y sacá más de 600 puntos
+    - Completá la encuesta de diversidad de Dig Encuentros
+    - Dejá una frase inspiradora en el banner de DiG Encuentros
+    - Imprimí algo en la impresora 3D de MuleSoft
+    - Pasá por el stand de Medallia y pedí un café
+    - Desafiá los conocimientos sobre Los Simpsons de El Tucu de Medallia
+    - Jugá a los juegos del Museo de Informática
 
 - name: selfie
   lines:
@@ -221,6 +236,8 @@
     - Preguntá quién es Vampii y sacate una selfie (te puede costar una cerveza)
     - "Selfie con tu manager en #nerdearla"
     - "Selfie en viaje yendo a #nerdearla (si manejas, no)"
+    - Selfie con un banner de Medallia
+    - Selfie con un banner de MuleSoft
 
 - name: tachadas
   strikeout: yes
@@ -240,3 +257,4 @@
     - Preguntá si alguien tiene un CD regrabable que te puedan prestar
     - Confesale a alguien que sos Satoshi Nakamoto
     - Agradecele a @pornhub por tanto
+    - Confiale a alguien que recién hayas conocido tu password de root
