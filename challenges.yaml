@@ -199,6 +199,19 @@
     - Selfie en el stand de MuleSoft
     - Selfie en el stand de OLX
     - Selfie en el stand de Toolbox
+    - Selfie tomando un café de Medallia
+    - Pedile una selfie a otra persona que tenga la misma remera que tenés puesta
+    - Pedile una selfie a un miembro de la organización
+    - Sacate una selfie con una persona buena onda que hayas conocido
+    - Preguntá quién es Vampii y sacate una selfie (te puede costar una cerveza)
+    - "Selfie con tu manager en #nerdearla"
+    - "Selfie en viaje yendo a #nerdearla (si manejas, no)"
+    - Selfie con un banner de Medallia
+    - Selfie con un banner de MuleSoft
+
+- name: selfie-coworking
+  max_per_page: 2
+  lines:
     - Selfie en la mesa de coworking 01
     - Selfie en la mesa de coworking 02
     - Selfie en la mesa de coworking 03
@@ -229,15 +242,6 @@
     - Selfie en la mesa de coworking 28
     - Selfie en la mesa de coworking 29
     - Selfie en la mesa de coworking 30
-    - Selfie tomando un café de Medallia
-    - Pedile una selfie a otra persona que tenga la misma remera que tenés puesta
-    - Pedile una selfie a un miembro de la organización
-    - Sacate una selfie con una persona buena onda que hayas conocido
-    - Preguntá quién es Vampii y sacate una selfie (te puede costar una cerveza)
-    - "Selfie con tu manager en #nerdearla"
-    - "Selfie en viaje yendo a #nerdearla (si manejas, no)"
-    - Selfie con un banner de Medallia
-    - Selfie con un banner de MuleSoft
 
 - name: tachadas
   strikeout: yes
