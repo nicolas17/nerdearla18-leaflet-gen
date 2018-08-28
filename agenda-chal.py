@@ -35,7 +35,8 @@ class Challenges:
     def __init__(self, path):
         with open(path, 'r') as f:
             self.data = yaml.load(f)
-            self.categories = {category['name']: category for category in self.data}
+
+        self.categories = {category['name']: category for category in self.data}
 
         self.lines = []
         for category in self.data:
@@ -52,8 +53,6 @@ class Challenges:
             item = random.choice(self.lines)
             if item in result:
                 continue
-            if item['category'] == 'tachadas':
-                print(item)
             if category_count[item['category']] >= self.categories[item['category']].get('max_per_page',999):
                 print("too many from %s in this page already" % item['category'])
                 continue
