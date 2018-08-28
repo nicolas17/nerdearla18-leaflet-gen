@@ -49,6 +49,11 @@ class Challenges:
         # how many items of each category we already added into 'results'
         category_count = collections.defaultdict(lambda: 0)
 
+        # this should be done with a more generic "min_per_page=1", but for now this HACK will do
+        strike_item = random.choice([line for line in self.lines if line['category'] == 'tachadas'])
+        result.append(strike_item)
+        category_count['tachadas'] += 1
+
         while len(result) < count:
             item = random.choice(self.lines)
             if item in result:
